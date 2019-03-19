@@ -29,9 +29,6 @@ def update_fuj_gold(last_update=None):
     sheet_names = get_sheet_names(spreadsheet_values)
     name_to_row = get_name_to_row_dict(sheet_names)
 
-    print('debug sheet_names:')
-    print(len(sheet_names))
-
     # fetch & process new payments
 
     # writing to new table since START_DATE

@@ -1,0 +1,9 @@
+1) Seradit jmeno prijmeni podle abecedy
+2) Najit misto, za ktere ma prijit novy clen
+3) Dat na tento radek v Krejcove tabulce, sheetu Teammates `insert row below`
+4) Vyhledat jmeno v ostatnich sheetech a na tom radku dat `insert row above`
+    - v Krejcove tabulce, sheetu Attendance
+    - v hlavni tabulce, sheetu Transfers manual
+    - v hlavni tabulce, sheetu Transfers bank
+    - v hlavni tabulce, sheetu Transfers 2019
+5) Optional: Nechat probehnout skript
