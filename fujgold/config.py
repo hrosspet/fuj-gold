@@ -1,5 +1,6 @@
 CONFIG = {
     'START_DATE': '21.02.2018',
+    'END_DATE': '05.03.2018',
     'GOOGLE': {
         'SCOPES': 'https://www.googleapis.com/auth/spreadsheets',
         'CLIENT_SECRET_FILE': 'client_secret.json',

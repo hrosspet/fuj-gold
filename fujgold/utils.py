@@ -17,6 +17,9 @@ def get_name_to_row_dict(names):
 def update_fuj_gold(last_update=None):
     current = datetime.utcnow()
 
+    if 'END_DATE' in CONFIG:
+        current = datetime.strptime(CONFIG['END_DATE'], '%d.%m.%Y')
+
     service = get_google_api()
 
     # fetch old spreadsheet values
@@ -30,7 +33,6 @@ def update_fuj_gold(last_update=None):
 
     # writing to new table since START_DATE
     last_update = datetime.strptime(START_DATE, '%d.%m.%Y') + timedelta(days=1)
-    last_update
 
     payments = process_payments_range(last_update, current, sheet_names)
 
