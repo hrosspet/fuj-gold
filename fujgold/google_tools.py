@@ -61,7 +61,8 @@ def get_google_api():
 
 def read_spreadsheet(service, spreadsheet_id, sheet_name):
     return service.spreadsheets().values().get(spreadsheetId=spreadsheet_id,
-                                               range=sheet_name, valueRenderOption='FORMULA').execute()['values']
+                                               range=sheet_name, valueRenderOption='FORMATTED_VALUE').execute()['values']
+                                               # range=sheet_name, valueRenderOption='FORMULA').execute()['values']
 
 def write_spreadsheet(service, spreadsheet_id, sheet_name, data):
     service.spreadsheets().values().update(spreadsheetId=spreadsheet_id,
@@ -76,13 +77,13 @@ def read_spreadsheet_values(service):
 
 
 def write_values(service, new_values, names_len):
-    offset = 4
-    write_range = SHEET_NAME + ('!D%d:Z%d' % (offset, offset + 2 * names_len))
+    offset = 2
+    write_range = SHEET_NAME + ('!C%d:Z%d' % (offset, offset + names_len))
 #     print(write_range)
     write_spreadsheet(service, SPREADSHEET_ID, write_range, new_values)
 
 def write_date(service):
-    write_range = SHEET_NAME + '!A2'
+    write_range = SHEET_NAME + '!A1'
     val = datetime.utcnow() + timedelta(hours=1)
     val = val.strftime('%Y-%m-%d %H:%M:%S')
     val = [[val]]
