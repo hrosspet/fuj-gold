@@ -7,11 +7,11 @@ START_DATE = CONFIG['START_DATE']
 
 
 def get_sheet_names(spreadsheet_values):
-    return [x[0] for x in spreadsheet_values[3:len(spreadsheet_values):2]]
+    return [x[0] for x in spreadsheet_values[2:len(spreadsheet_values)] if x[0]]
 
 
 def get_name_to_row_dict(names):
-    return {x: (i * 2 + 1) for i,x in enumerate(names)}
+    return {x: (i + 1) for i,x in enumerate(names)}
 
 
 def update_fuj_gold(last_update=None):
@@ -29,6 +29,9 @@ def update_fuj_gold(last_update=None):
     sheet_names = get_sheet_names(spreadsheet_values)
     name_to_row = get_name_to_row_dict(sheet_names)
 
+    print('debug sheet_names:')
+    print(len(sheet_names))
+
     # fetch & process new payments
 
     # writing to new table since START_DATE
@@ -36,7 +39,7 @@ def update_fuj_gold(last_update=None):
 
     payments = process_payments_range(last_update, current, sheet_names)
 
-    vals = [x[3:] for x in spreadsheet_values[3:]]
+    vals = [x[3:] for x in spreadsheet_values[2:]]
 
     # update values
     for name, values in payments.items():
