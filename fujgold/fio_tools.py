@@ -10,6 +10,7 @@ from fujgold.HTMLParser import MyHTMLParser
 from fujgold.config import CONFIG
 
 REQUEST_STRING = CONFIG['FIO']['REQUEST_STRING']
+FUJGOLD_NAME = 'fujgold'
 
 def format_request_range(previous, current):
     current = datetime.strftime(current, '%d.%m.%Y')
@@ -59,10 +60,15 @@ def recognize_name(item, known_names):
 
     all_possibilities += [x for sublist in expanded_possibilities for x in sublist if isinstance(sublist, set)]
 
+    # if FUJGOLD_NAME in transfer note, skip
+    if FUJGOLD_NAME in all_possibilities:
+        return None
+
     name = [transform_name_canonical(x) for x in all_possibilities if transform_name_canonical(x) in known_names]
 
     if len(name) > 1:
         name = list(set(name))
+
 
     if len(name) == 1:
         name = name[0]
