@@ -5,13 +5,15 @@ from fujgold.config import CONFIG
 
 START_DATE = CONFIG['START_DATE']
 
+SHEET_OFFSET = 1
+
 
 def get_sheet_names(spreadsheet_values):
-    return [x[0] for x in spreadsheet_values[2:len(spreadsheet_values)] if x[0]]
+    return [x[0] for x in spreadsheet_values[SHEET_OFFSET:] if x[0]]
 
 
 def get_name_to_row_dict(names):
-    return {x: (i + 1) for i,x in enumerate(names)}
+    return dict(zip(names, range(len(names))))
 
 
 def update_fuj_gold(last_update=None):
@@ -29,24 +31,23 @@ def update_fuj_gold(last_update=None):
     sheet_names = get_sheet_names(spreadsheet_values)
     name_to_row = get_name_to_row_dict(sheet_names)
 
-    # fetch & process new payments
-
     # writing to new table since START_DATE
     last_update = datetime.strptime(START_DATE, '%d.%m.%Y') + timedelta(days=1)
 
+    # fetch & process new payments
     payments = process_payments_range(last_update, current, sheet_names)
 
-    vals = [x[3:] for x in spreadsheet_values[2:]]
+    # init vals
+    vals = [[]] * len(name_to_row)
 
-    # update values
+    # order payments according to names
     for name, values in payments.items():
         if name in name_to_row:
             row = name_to_row[name]
             vals[row] = values
-
         else:
             print('unmatched payment: %s,' % name, values)
 
     # write values
-    write_values(service, vals, len(name_to_row))
+    write_values(service, vals, len(name_to_row), SHEET_OFFSET)
     write_date(service)

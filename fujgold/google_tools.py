@@ -76,10 +76,9 @@ def read_spreadsheet_values(service):
     return read_spreadsheet(service, SPREADSHEET_ID, SHEET_NAME)
 
 
-def write_values(service, new_values, names_len):
-    offset = 2
-    write_range = SHEET_NAME + ('!C%d:Z%d' % (offset, offset + names_len))
-#     print(write_range)
+def write_values(service, new_values, names_len, sheet_offset):
+    # cell numbering in sheets is from 1 instead of 0 -> +1
+    write_range = SHEET_NAME + ('!C%d:Z%d' % (sheet_offset + 1, sheet_offset + 1 + names_len))
     write_spreadsheet(service, SPREADSHEET_ID, write_range, new_values)
 
 def write_date(service):
