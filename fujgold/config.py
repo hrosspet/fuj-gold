@@ -9,6 +9,6 @@ CONFIG = {
         "SPREADSHEET_ID": "1X659l4t3YtHc7dDkGLlbKQSLy6ZHFdrSGu0VIc-YuPc",
     },
     "FIO": {
-        "REQUEST_STRING": "https://www.fio.cz/ib2/transparent?a=2800359168&f=%s&t=%s"
+        "REQUEST_STRING": "https://www.fio.cz/ib_api/rest/periods/oUTFke1wvtFXzbZ9kHNpe1wbdCxyWaqFInxBFcFzAXLFzFVjkSOJZGs4Gu3VaePH/%s/%s/transactions.csv"
     },
 }
