@@ -70,7 +70,10 @@ def format_payments(transactions_df, sheet_names):
 def process_payments_range(previous, current, sheet_names):
     response = get_request(previous, current)
 
-    transactions_df = process_transactions(response, sheet_names)
+    try:
+        transactions_df = process_transactions(response, sheet_names)
+    except pd.errors.EmptyDataError:
+        transactions_df = pd.DataFrame(columns=[COL_POZNAMKA, COL_OBJEM])
 
     # format the transactions for the spreadsheet
     payments = format_payments(transactions_df, sheet_names)
